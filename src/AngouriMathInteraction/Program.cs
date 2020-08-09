@@ -48,7 +48,7 @@ namespace AngouriMathInteraction
 
             if (!MathS.CanBeEvaluated(expr))
             {
-                WriteToOutputFile("cannot evaluate expression");
+                WriteToOutputFile("> cannot evaluate expression");
             }
             else
             {
@@ -59,14 +59,20 @@ namespace AngouriMathInteraction
 
         static void CommandExpandHandler(string arg)
         {
-            var expr = arg.Expand();
-            WriteToOutputFile(expr.ToString());
+            var expr = MathS.FromString(arg);
+            WriteToOutputFile($"> expand {expr}\n\n");
+
+            string result = expr.Expand().ToString();
+            WriteToOutputFile(result);
         }
 
         static void CommandCollapseHandler(string arg)
         {
-            var expr = arg.Collapse();
-            WriteToOutputFile(expr.ToString());
+            var expr = MathS.FromString(arg);
+            WriteToOutputFile($"> collapse {expr}\n\n");
+
+            string result = expr.Collapse().ToString();
+            WriteToOutputFile(result);
         }
 
         static void CommandSolveHandler(string arg)
@@ -129,11 +135,11 @@ namespace AngouriMathInteraction
                     case "expand":
                         CommandExpandHandler(arg);
                         break;
-                    case "collaps":
+                    case "collapse":
                         CommandCollapseHandler(arg);
                         break;
                     default:
-                        CommandHandleError("unknown command: " + command);
+                        CommandHandleError("> unknown command: " + command);
                         return;
                 }
             }
@@ -146,12 +152,13 @@ namespace AngouriMathInteraction
         static void Main(string[] args)
         {
             // usage
-            // args[0] - result filename
-            // args[1] - command simplify, eval, etc
+            // args[0] - output filename
+            // args[1] - command (simplify, eval, etc)
+            // args[2] - additional arguments
 
             if(args.Length < 3)
             {
-                Console.WriteLine("not enough arguments: {" + string.Join(", ", args) + "}");
+                Console.WriteLine("> not enough arguments: {" + string.Join(", ", args) + "}");
                 return;
             }
             fileName = args[0];
