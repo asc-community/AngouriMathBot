@@ -22,10 +22,13 @@ namespace AngouriMathInteraction
 
         static void CommandHelpHandler(string arg)
         {
+            WriteToOutputFile("I'm bot based on https://github.com/asc-community/AngouriMath \n");
             WriteToOutputFile("+am simplify {expr} - simplifies expression\n");
             WriteToOutputFile("+am eval {expr} - evaluates expression if possible\n");
             WriteToOutputFile("+am solve {expr} {variable} - solves expression for given variable\n");
             WriteToOutputFile("+am derive {expr} {variable} - differenciate expression\n");
+            WriteToOutputFile("+am expand {expr} {variable} - expands to get rid of braces\n");
+            WriteToOutputFile("+am collapse {expr} {variable} - collapses an expression\n");
             WriteToOutputFile("+am help - displays help message\n");
         }
 
@@ -34,7 +37,7 @@ namespace AngouriMathInteraction
             var expr = MathS.FromString(arg);
             WriteToOutputFile($"> simplify {expr}\n\n");
 
-            string result = expr.Simplify().ToString();
+            string result = expr.Simplify(5).ToString();
             WriteToOutputFile(result);
         }
 
@@ -52,6 +55,18 @@ namespace AngouriMathInteraction
                 string result = expr.Eval().ToString();
                 WriteToOutputFile(result);
             }
+        }
+
+        static void CommandExpandHandler(string arg)
+        {
+            var expr = arg.Expand();
+            WriteToOutputFile(expr.ToString());
+        }
+
+        static void CommandCollapseHandler(string arg)
+        {
+            var expr = arg.Collapse();
+            WriteToOutputFile(expr.ToString());
         }
 
         static void CommandSolveHandler(string arg)
@@ -96,6 +111,9 @@ namespace AngouriMathInteraction
 
                 switch (command)
                 {
+                    case "help":
+                        CommandHelpHandler(arg);
+                        break;
                     case "simplify":
                         CommandSimplifyHandler(arg);
                         break;
@@ -108,8 +126,11 @@ namespace AngouriMathInteraction
                     case "derive":
                         CommandDeriveHandler(arg);
                         break;
-                    case "help":
-                        CommandHelpHandler(arg);
+                    case "expand":
+                        CommandExpandHandler(arg);
+                        break;
+                    case "collaps":
+                        CommandCollapseHandler(arg);
                         break;
                     default:
                         CommandHandleError("unknown command: " + command);
