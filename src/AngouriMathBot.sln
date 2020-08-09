@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngouriMathBot", "AngouriMathBot\AngouriMathBot.csproj", "{16DE91A1-B267-45BF-9C42-CF2CD2F331B9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC46F2DA-9846-4F91-8201-CEC30ABBED7E} = {DC46F2DA-9846-4F91-8201-CEC30ABBED7E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngouriMathInteraction", "AngouriMathInteraction\AngouriMathInteraction.csproj", "{DC46F2DA-9846-4F91-8201-CEC30ABBED7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngouriMathInteraction", "AngouriMathInteraction\AngouriMathInteraction.csproj", "{DC46F2DA-9846-4F91-8201-CEC30ABBED7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
