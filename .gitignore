@@ -432,3 +432,4 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 /Build/netcoreapp3.1
+/src/Build/netcoreapp3.1

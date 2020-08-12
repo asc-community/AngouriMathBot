@@ -176,16 +176,31 @@ namespace AngouriMathInteraction
 
             var solutions = MathS.Equations(entities).Solve(variables);
 
+            if (solutions.Shape.Length == 1)
+            {
+                WriteToOutputFile("No solutions");
+                return;
+            }
+
+            void Output(Func<Entity, Entity> op)
+            {
+                for (int setId = 0; setId < solutions.Shape[0]; setId++)
+                {
+                    WriteToOutputFile($"Solution set # {setId + 1} / {solutions.Shape[0]}\n");
+                    for (int varId = 0; varId < solutions.Shape[1]; varId++)
+                    WriteToOutputFile($"> {variables[varId]} = {op(solutions[setId, varId])}\n");
+                    WriteToOutputFile("\n");
+                }
+            }
+
+            /*
+             @MomoDeve we presumably don't need it
             WriteToOutputFile("> raw result:\n");
-            for (int i = 0; i < variables.Length; i++)
-            {
-                WriteToOutputFile($"> {variables[i]} = {solutions[0, i]}\n");
-            }
-            WriteToOutputFile("\n> after simplify:\n");
-            for (int i = 0; i < variables.Length; i++)
-            {
-                WriteToOutputFile($"> {variables[i]} = {solutions[0, i].Simplify()}\n");
-            }
+            Output(c => c);
+            */
+    
+            WriteToOutputFile("> result:\n");
+            Output(c => c.Simplify());
         }
 
         static void CommandDeriveHandler(string arg)
